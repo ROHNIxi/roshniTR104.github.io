@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training TR-103</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f4fbfd 0%, #60b3d1 100%);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "student-details student-details"
+                "menu content"
+                "footer footer";
+            grid-template-columns: 1fr 3fr;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .header {
+            grid-area: header;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #012641;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-logo img {
+            max-width: 80px;
+            filter: brightness(1.1) contrast(1.1);
+            margin: 0 15px;
+        }
+
+        .header-text {
+            font-size: 24px;
+            text-align: center;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-text h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 32px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .student-details {
+            grid-area: student-details;
+            text-align: center;
+            margin: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .student-details h2 {
+            font-size: 24px;
+            color: #012641;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .student-details p {
+            font-size: 18px;
+            color: #424242;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+
+        .menu {
+            grid-area: menu;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .dropdown {
+            background: #012641;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+        }
+
+        .dropdown:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: #60b3d1;
+        }
+
+        .week-dropdown {
+            background: #d9edf7;
+            color: #012641;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .week-dropdown:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: #bcdff1;
+        }
+
+        .day-dropdown {
+            background: #f4fbfd;
+            color: #012641;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 5px 0;
+            margin-left: 15px;
+        }
+
+        .day-dropdown:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            background: #e3f3f7;
+        }
+
+        .content {
+            grid-area: content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .footer {
+            grid-area: footer;
+            text-align: center;
+            margin: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-logo">
+                <img src="img_1.png" alt="GNDEC Logo">
+            </div>
+            <div class="header-text">
+                <h1>Training TR-104 Report</h1>
+                <p>6 Months Training at CETPA Infotech Pvt. Ltd., Noida</p>
+            </div>
+            <div class="header-logo">
+                <img src="cetpainfotech_logo.jpg" alt="CSIR Logo">
+            </div>
+        </div>
+
+        <div class="student-details">
+            <h2>By Roshni</h2>
+            <p>URN:2203593 / CRN:2115186</p>
+            <p>B.Tech CSE C2 D4 2021-2025</p>
+            <p>Guru Nanak Dev Engineering College Ludhiana</p>
+        </div>
+
+        <div class="menu">
+            <div class="dropdown" onclick="toggleDropdown('month1')">Month 1</div>
+            <div id="month1" style="display:none;">
+                <div class="week-dropdown" onclick="toggleDropdown('week1')">Week 1</div>
+                <div id="week1" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('python16sep/16SEP.pdf')">Day 1</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/17sep.pdf')">Day 2</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/18SEP.pdf')">Day 3</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/19sep.pdf')">Day 4</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/20sep.pdf')">Day 5</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('week2')">Week 2</div>
+                <div id="week2" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('python16sep/23sep.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/24sep.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/25sep.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/26sep.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/27sep.pdf')">Day 10</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('week3')">Week 3</div>
+                <div id="week3" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('python16sep/30sep.pdf')">Day 11</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/1oct.pdf')">Day 12</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/2oct.pdf')">Day 13</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/3oct.pdf')">Day 14</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/4OCT.pdf')">Day 15</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('week4')">Week 4</div>
+                <div id="week4" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('python16sep/7oct.pdf')">Day 16</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/8oct.pdf')">Day 17</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/9oct.pdf')">Day 18</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/10oct.pdf')">Day 19</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/11oct.pdf')">Day 20</div>
+                </div>  
+            </div>
+
+            <div class="dropdown" onclick="toggleDropdown('month2')">Month 2</div>
+            <div id="month2" style="display:none;">
+                <div class="week-dropdown" onclick="toggleDropdown('month2-week1')">Week 1</div>
+                <div id="month2-week1" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('python16sep/14oct.pdf')">Day 1</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/15oct.pdf')">Day 2</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/16oct.pdf')">Day 3</div>
+                    <div class="day-dropdown" onclick="showPDF('Holiday.pdf')">Day 4</div>
+                    <div class="day-dropdown" onclick="showPDF('python16sep/17oct.pdf')">Day 5</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month2-week2')">Week 2</div>
+                <div id="month2-week2" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/21oct.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/22oct.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/23oct.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/24oct.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/25oct.pdf')">Day 10</div>
+                </div>
+                <!-- Repeat similar changes for Week 3 and Week 4 -->
+                <div class="week-dropdown" onclick="toggleDropdown('month2-week3')">Week 3</div>
+                <div id="month2-week3" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('Holiday.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/28oct.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/29oct.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/30oct.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/31oct.pdf')">Day 10</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month2-week4')">Week 4</div>
+                <div id="month2-week4" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/1nov.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/2nov.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/5NOV.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/6nov.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/7nov.pdf')">Day 10</div>
+                </div>
+            </div>
+
+
+            <div class="dropdown" onclick="toggleDropdown('month3')">Month 3</div>
+            <div id="month3" style="display:none;">
+                <div class="week-dropdown" onclick="toggleDropdown('month3-week1')">Week 1</div>
+                <div id="month3-week1" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/8oct.pdf')">Day 1</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/11nov.pdf')">Day 2</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/12nov.pdf')">Day 3</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/13NOV.pdf')">Day 4</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/14NOV.pdf')">Day 5</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month3-week2')">Week 2</div>
+                <div id="month3-week2" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/15NOV.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/18NOV.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/19NOV.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/20NOV.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/21NOV.pdf')">Day 10</div>
+                </div>
+                <!-- Repeat similar changes for Week 3 and Week 4 -->
+                <div class="week-dropdown" onclick="toggleDropdown('month3-week3')">Week 3</div>
+                <div id="month3-week3" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/22NOV.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/25NOV.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DA21oct/26NOV.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-51.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-52.pdf')">Day 10</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month3-week4')">Week 4</div>
+                <div id="month3-week4" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-53.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-54.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-55.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-56.pdf')">Day 10</div>
+                </div>
+            </div>
+
+
+            <div class="dropdown" onclick="toggleDropdown('month4')">Month 4</div>
+            <div id="month4" style="display:none;">
+                <div class="week-dropdown" onclick="toggleDropdown('month4-week1')">Week 1</div>
+                <div id="month4-week1" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-57.pdf')">Day 1</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-58.pdf')">Day 2</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-59.pdf')">Day 3</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-60.pdf')">Day 4</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-61.pdf')">Day 5</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month4-week2')">Week 2</div>
+                <div id="month4-week2" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-62.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-63.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-64.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-65.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-66.pdf')">Day 10</div>
+                </div>
+                <!-- Repeat similar changes for Week 3 and Week 4 -->
+                <div class="week-dropdown" onclick="toggleDropdown('month4-week3')">Week 3</div>
+                <div id="month4-week3" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-67.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('ML/Day-68.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-69.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-70.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-71.pdf')">Day 10</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month4-week4')">Week 4</div>
+                <div id="month4-week4" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-72.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-73.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('Holiday.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-74.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-75.pdf')">Day 10</div>
+                </div>
+            </div>
+
+
+            <div class="dropdown" onclick="toggleDropdown('month5')">Month 5</div>
+            <div id="month5" style="display:none;">
+                <div class="week-dropdown" onclick="toggleDropdown('month5-week1')">Week 1</div>
+                <div id="month5-week1" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-76.pdf')">Day 1</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-77.pdf')">Day 2</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-77.pdf')">Day 3</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-78.pdf')">Day 4</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-79.pdf')">Day 5</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month5-week2')">Week 2</div>
+                <div id="month5-week2" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-80.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/day-81.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-82.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-83.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-84.pdf')">Day 10</div>
+                </div>
+                <!-- Repeat similar changes for Week 3 and Week 4 -->
+                <div class="week-dropdown" onclick="toggleDropdown('month5-week3')">Week 3</div>
+                <div id="month5-week3" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-85.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-86.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-87.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-88.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-89.pdf')">Day 10</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month5-week4')">Week 4</div>
+                <div id="month5-week4" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-90.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-91.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-92.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('Holiday.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-93.pdf')">Day 10</div>
+                </div>
+            </div>
+
+
+            <div class="dropdown" onclick="toggleDropdown('month6')">Month 6</div>
+            <div id="month6" style="display:none;">
+                <div class="week-dropdown" onclick="toggleDropdown('month6-week1')">Week 1</div>
+                <div id="month6-week1" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-94.pdf')">Day 1</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-95.pdf')">Day 2</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-96.pdf')">Day 3</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-97.pdf')">Day 4</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-98.pdf')">Day 5</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month6-week2')">Week 2</div>
+                <div id="month6-week2" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-99.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-100.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-101.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-102.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-103.pdf')">Day 10</div>
+                </div>
+                <!-- Repeat similar changes for Week 3 and Week 4 -->
+                <div class="week-dropdown" onclick="toggleDropdown('month6-week3')">Week 3</div>
+                <div id="month6-week3" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-104.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-105.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-106.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-107.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-108.pdf')">Day 10</div>
+                </div>
+                <div class="week-dropdown" onclick="toggleDropdown('month6-week4')">Week 4</div>
+                <div id="month6-week4" style="display:none;">
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-109.pdf')">Day 6</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-110.pdf')">Day 7</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-111.pdf')">Day 8</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-112.pdf')">Day 9</div>
+                    <div class="day-dropdown" onclick="showPDF('DL_AI/Day-113.pdf')">Day 10</div>
+                </div>
+            </div>
+        
+
+
+
+        </div>
+
+        <div class="content">
+            <iframe class="pdf-viewer" id="pdfViewer" src=""></iframe>
+        </div>
+
+        <div class="footer">
+            <p>CETPA Infotech Pvt. Ltd., Noida</p>
+            <p>&copy;2024 Kajal Yadav | All Rights Reserved</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            if (dropdown.style.display === "none") {
+                dropdown.style.display = "block";
+            } else {
+                dropdown.style.display = "none";
+            }
+        }
+
+        function showPDF(pdfFile) {
+            const pdfViewer = document.getElementById('pdfViewer');
+            pdfViewer.src = pdfFile;
+        }
+    </script>
+</body>
+</html>
